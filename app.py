@@ -1,7 +1,7 @@
-from flask import Flask, render_template_string, request, redirect, url_for, session
+from flask import Flask, render_template, render_template_string, request, redirect, url_for, session
 import sqlite3, os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = "dani_secret_key_123"
 DB_NAME = "clients.db"
 
@@ -29,59 +29,8 @@ def init_db():
 # 2️⃣ Pagina principală
 # --------------------------
 @app.route('/')
-def home():
-    return '''
-    <script src="https://cdn.tailwindcss.com"></script>
-    <div class="min-h-screen bg-gray-50 text-gray-800 font-sans">
-      <!-- Header -->
-      <header class="bg-white shadow">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 class="text-2xl font-bold">🏋️‍♂️ Coach Daniel Andrei</h1>
-          <nav>
-            <a href="/evaluare" class="px-4 py-2 bg-black text-white rounded-xl hover:bg-gray-800">Evaluare</a>
-            <a href="/login" class="px-4 py-2 ml-2 border rounded-xl hover:bg-gray-100">Admin</a>
-          </nav>
-        </div>
-      </header>
-
-      <!-- Hero Section -->
-      <section class="text-center py-20 bg-gradient-to-b from-gray-100 to-white">
-        <h2 class="text-4xl font-extrabold mb-4">Planuri personalizate de antrenament și nutriție</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto mb-8">Transformă-ți corpul și stilul de viață fără filmări, fără aplicații complicate — doar programe eficiente, adaptate 100% nevoilor tale.</p>
-        <a href="/evaluare" class="px-8 py-3 bg-black text-white rounded-xl text-lg hover:bg-gray-800">Completează evaluarea</a>
-      </section>
-
-      <!-- Beneficii -->
-      <section class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-8 text-center">
-        <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg">
-          <h3 class="text-xl font-semibold mb-2">🏃‍♂️ Program Personalizat</h3>
-          <p class="text-gray-600">Fiecare client primește un plan de antrenament creat exact pentru nivelul și obiectivele sale.</p>
-        </div>
-        <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg">
-          <h3 class="text-xl font-semibold mb-2">🥗 Nutriție Simplă & Eficientă</h3>
-          <p class="text-gray-600">Recomandări clare, fără restricții extreme. Mese adaptate preferințelor tale alimentare.</p>
-        </div>
-        <div class="bg-white p-6 rounded-2xl shadow hover:shadow-lg">
-          <h3 class="text-xl font-semibold mb-2">📈 Progres Real Monitorizat</h3>
-          <p class="text-gray-600">Folosim un sistem simplu de feedback — fără aplicații, direct prin fișe săptămânale.</p>
-        </div>
-      </section>
-
-      <!-- Call To Action -->
-      <section class="text-center py-16 bg-black text-white">
-        <h3 class="text-2xl font-bold mb-4">Ești gata să începi transformarea?</h3>
-        <p class="mb-6 text-gray-300">Completează evaluarea inițială și primești planul tău în 24–48h.</p>
-        <a href="/evaluare" class="px-8 py-3 bg-white text-black rounded-xl font-semibold hover:bg-gray-200">Începe acum</a>
-      </section>
-
-      <!-- Footer -->
-      <footer class="bg-gray-900 text-gray-300 text-center py-6 mt-10">
-        <p>© 2025 Coach Daniel Andrei – Toate drepturile rezervate</p>
-      </footer>
-    </div>
-    '''
-
-
+@app.route('/')
+def home():    return render_template("index.html")
 # --------------------------
 # 3️⃣ Formular evaluare
 # --------------------------
